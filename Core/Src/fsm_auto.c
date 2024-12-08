@@ -10,8 +10,8 @@
 int red_yellow_green_auto_time_vertical[3] = {5, 2, 3};
 int red_yellow_green_auto_time_horizontal[3] = {5, 2, 3};
 
-int horizontal_counter = 0;
-int vertical_counter = 0;
+int horizontal_counter = -1;
+int vertical_counter = -1;
 
 int status_horizontal = AUTO_RED;
 int status_vertical = AUTO_GREEN;

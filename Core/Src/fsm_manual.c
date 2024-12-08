@@ -165,6 +165,10 @@ void fsm_manual()
 
 		if(isButton4Pressed() == 1)
 		{
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
@@ -175,6 +179,10 @@ void fsm_manual()
 		}
 		else
 		{
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
@@ -261,6 +269,10 @@ void fsm_manual()
 
 			}
 
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
@@ -271,6 +283,10 @@ void fsm_manual()
 		}
 		else
 		{
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
@@ -409,6 +425,10 @@ void fsm_manual()
 
 			}
 
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
@@ -419,6 +439,10 @@ void fsm_manual()
 		}
 		else
 		{
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
