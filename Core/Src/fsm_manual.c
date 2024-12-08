@@ -254,8 +254,8 @@ void fsm_manual()
 			{
 				red_yellow_green_manual_time[2] = red_yellow_green_manual_time[0] - red_yellow_green_manual_time[1];
 
-				if(red_yellow_green_manual_time[1] < red_yellow_green_manual_time[2]
-				&& red_yellow_green_manual_time[1] < red_yellow_green_manual_time[0])
+				if(red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[2]
+				&& red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[0])
 				{
 					red_yellow_green_auto_time_horizontal[0] = red_yellow_green_manual_time[0];
 					red_yellow_green_auto_time_vertical[0] = red_yellow_green_manual_time[0];
@@ -314,6 +314,10 @@ void fsm_manual()
 
 		if(isButton1Pressed() == 1)
 		{
+			EN_horizontal = 0;
+			EN_vertical = 0;
+			horizontal_counter = -1;
+			vertical_counter = -1;
 			status_horizontal = AUTO_RED;
 			status_vertical = AUTO_GREEN;
 		}
@@ -356,8 +360,8 @@ void fsm_manual()
 			{
 				red_yellow_green_manual_time[2] = red_yellow_green_manual_time[0] - red_yellow_green_manual_time[1];
 
-				if(red_yellow_green_manual_time[1] < red_yellow_green_manual_time[2]
-				&& red_yellow_green_manual_time[1] < red_yellow_green_manual_time[0])
+				if(red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[2]
+				&& red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[0])
 				{
 					red_yellow_green_auto_time_horizontal[0] = red_yellow_green_manual_time[0];
 					red_yellow_green_auto_time_vertical[0] = red_yellow_green_manual_time[0];
@@ -374,8 +378,8 @@ void fsm_manual()
 			{
 				red_yellow_green_manual_time[1] = red_yellow_green_manual_time[0] - red_yellow_green_manual_time[2];
 
-				if(red_yellow_green_manual_time[1] < red_yellow_green_manual_time[2]
-				&& red_yellow_green_manual_time[1] < red_yellow_green_manual_time[0])
+				if(red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[2]
+				&& red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[0])
 				{
 					red_yellow_green_auto_time_horizontal[0] = red_yellow_green_manual_time[0];
 					red_yellow_green_auto_time_vertical[0] = red_yellow_green_manual_time[0];
@@ -392,8 +396,8 @@ void fsm_manual()
 			{
 				red_yellow_green_manual_time[0] = red_yellow_green_manual_time[1] + red_yellow_green_manual_time[2];
 
-				if(red_yellow_green_manual_time[1] < red_yellow_green_manual_time[2]
-				&& red_yellow_green_manual_time[1] < red_yellow_green_manual_time[0])
+				if(red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[2]
+				&& red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[0])
 				{
 					red_yellow_green_auto_time_horizontal[0] = red_yellow_green_manual_time[0];
 					red_yellow_green_auto_time_vertical[0] = red_yellow_green_manual_time[0];
@@ -409,8 +413,8 @@ void fsm_manual()
 			else if((check_button2_red == 1 || check_button3_red == 1) && (check_button2_yellow == 1 || check_button3_yellow == 1) && (check_button2_green == 1 || check_button3_green == 1))
 			{
 
-				if(red_yellow_green_manual_time[1] < red_yellow_green_manual_time[2]
-				&& red_yellow_green_manual_time[1] < red_yellow_green_manual_time[0]
+				if(red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[2]
+				&& red_yellow_green_manual_time[1] <= red_yellow_green_manual_time[0]
 				&& red_yellow_green_manual_time[0] == red_yellow_green_manual_time[1] + red_yellow_green_manual_time[2])
 				{
 					red_yellow_green_auto_time_horizontal[0] = red_yellow_green_manual_time[0];
