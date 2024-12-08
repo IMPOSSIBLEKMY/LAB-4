@@ -3996,7 +3996,6 @@ int main(void)
  8001be2:	f000 f9fd 	bl	8001fe0 <SCH_Add_Task>
 
 
-
   while (1)
   {
 	  SCH_Dispatch_Tasks();
