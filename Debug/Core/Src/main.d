@@ -26,7 +26,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/software_timer.h ../Core/Inc/button.h ../Core/Inc/main.h \
  ../Core/Inc/7SEG.h ../Core/Inc/button.h ../Core/Inc/software_timer.h \
  ../Core/Inc/fsm_auto.h ../Core/Inc/7SEG.h ../Core/Inc/fsm_manual.h \
- ../Core/Inc/fsm_auto.h ../Core/Inc/fsm_manual.h
+ ../Core/Inc/fsm_auto.h ../Core/Inc/fsm_manual.h ../Core/Inc/scheduler.h
 
 ../Core/Inc/main.h:
 
@@ -99,3 +99,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/fsm_auto.h:
 
 ../Core/Inc/fsm_manual.h:
+
+../Core/Inc/scheduler.h:

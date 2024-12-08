@@ -56,7 +56,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
-
+void testLED(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -94,31 +94,27 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  SCH_Init();
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimerTest(1000);
-  setTimerENhorizontal(500);
-  setTimerENvertical(500);
+  SCH_Add_Task(getButton1, 0, 10);
+  SCH_Add_Task(getButton2, 0, 10);
+  SCH_Add_Task(getButton3, 0, 10);
+  SCH_Add_Task(getButton4, 0, 10);
+
+  SCH_Add_Task(testLED, 0, 1000);
+
+  SCH_Add_Task(fsm_manual, 0, 500);
+  SCH_Add_Task(fsm_automatic, 0, 1000);
+  SCH_Add_Task(display7SEGFinal, 0, 500);
+
 
   while (1)
   {
-	  if(timerTest_flag == 1)
-	  {
-		  HAL_GPIO_TogglePin(test_GPIO_Port, test_Pin);
-
-		  setTimerTest(1000);
-	  }
-
-	  fsm_setting();
-
-	  display7SEGFinal();
-
-	  fsm_manual();
-
-	  fsm_automatic();
+	  SCH_Dispatch_Tasks();
 
     /* USER CODE END WHILE */
 
@@ -272,12 +268,12 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	timerRun();
-	getButton1();
-	getButton2();
-	getButton3();
-	getButton4();
 	SCH_Update();
+}
+
+void testLED(void)
+{
+	HAL_GPIO_TogglePin(test_GPIO_Port, test_Pin);
 }
 /* USER CODE END 4 */
 

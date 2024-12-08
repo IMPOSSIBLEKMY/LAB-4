@@ -4,4 +4,4 @@
 7SEG.c:259:6:display7SEGBuffervertical	16	static
 7SEG.c:280:6:display7SEGBufferhorizontal	16	static
 7SEG.c:301:6:display7SEGFinalvertical	8	static
-7SEG.c:339:6:display7SEGFinalhorizontal	8	static
+7SEG.c:336:6:display7SEGFinalhorizontal	8	static

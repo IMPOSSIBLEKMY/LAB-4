@@ -11,8 +11,8 @@ int buffer_7SEG_vertical[2] = {0, 0};
 
 int buffer_7SEG_horizontal[2] = {0, 0};
 
-int EN_horizontal = 1;
-int EN_vertical = 1;
+int EN_horizontal = 0;
+int EN_vertical = 0;
 
 void display7SEGFinal()
 {
@@ -304,36 +304,33 @@ void display7SEGFinalvertical()
 	{
 	case AUTO_RED:
 	{
-		buffer_7SEG_vertical[0] = temp_red_yellow_green_auto_time_vertical[0] / 10;
-		buffer_7SEG_vertical[1] = temp_red_yellow_green_auto_time_vertical[0] % 10;
+		buffer_7SEG_vertical[0] = (red_yellow_green_auto_time_vertical[0] - vertical_counter) / 10;
+		buffer_7SEG_vertical[1] = (red_yellow_green_auto_time_vertical[0] - vertical_counter) % 10;
 		break;
 	}
 	case AUTO_YELLOW:
 	{
-		buffer_7SEG_vertical[0] = temp_red_yellow_green_auto_time_vertical[1] / 10;
-		buffer_7SEG_vertical[1] = temp_red_yellow_green_auto_time_vertical[1] % 10;
+		buffer_7SEG_vertical[0] = (red_yellow_green_auto_time_vertical[1] - vertical_counter) / 10;
+		buffer_7SEG_vertical[1] = (red_yellow_green_auto_time_vertical[1] - vertical_counter) % 10;
 		break;
 	}
 	case AUTO_GREEN:
 	{
-		buffer_7SEG_vertical[0] = temp_red_yellow_green_auto_time_vertical[2] / 10;
-		buffer_7SEG_vertical[1] = temp_red_yellow_green_auto_time_vertical[2] % 10;
+		buffer_7SEG_vertical[0] = (red_yellow_green_auto_time_vertical[2] - vertical_counter) / 10;
+		buffer_7SEG_vertical[1] = (red_yellow_green_auto_time_vertical[2] - vertical_counter) % 10;
 		break;
 	}
 	}
 
-	if(timerENvertical_flag == 1)
+	if(EN_vertical > 1)
 	{
-		if(EN_vertical > 1)
-		{
-			EN_vertical = 0;
-		}
-
-		display7SEGBuffervertical(EN_vertical);
-
-		EN_vertical++;
-		setTimerENvertical(500);
+		EN_vertical = 0;
 	}
+
+	display7SEGBuffervertical(EN_vertical);
+
+	EN_vertical++;
+
 }
 
 void display7SEGFinalhorizontal()
@@ -342,20 +339,20 @@ void display7SEGFinalhorizontal()
 	{
 	case AUTO_RED:
 	{
-		buffer_7SEG_horizontal[0] = temp_red_yellow_green_auto_time_horizontal[0] / 10;
-		buffer_7SEG_horizontal[1] = temp_red_yellow_green_auto_time_horizontal[0] % 10;
+		buffer_7SEG_horizontal[0] = (red_yellow_green_auto_time_horizontal[0] - horizontal_counter) / 10;
+		buffer_7SEG_horizontal[1] = (red_yellow_green_auto_time_horizontal[0] - horizontal_counter) % 10;
 		break;
 	}
 	case AUTO_YELLOW:
 	{
-		buffer_7SEG_horizontal[0] = temp_red_yellow_green_auto_time_horizontal[1] / 10;
-		buffer_7SEG_horizontal[1] = temp_red_yellow_green_auto_time_horizontal[1] % 10;
+		buffer_7SEG_horizontal[0] = (red_yellow_green_auto_time_horizontal[1] - horizontal_counter) / 10;
+		buffer_7SEG_horizontal[1] = (red_yellow_green_auto_time_horizontal[1] - horizontal_counter) % 10;
 		break;
 	}
 	case AUTO_GREEN:
 	{
-		buffer_7SEG_horizontal[0] = temp_red_yellow_green_auto_time_horizontal[2] / 10;
-		buffer_7SEG_horizontal[1] = temp_red_yellow_green_auto_time_horizontal[2] % 10;
+		buffer_7SEG_horizontal[0] = (red_yellow_green_auto_time_horizontal[2] - horizontal_counter) / 10;
+		buffer_7SEG_horizontal[1] = (red_yellow_green_auto_time_horizontal[2] - horizontal_counter) % 10;
 		break;
 	}
 	case MANUAL_RED:
@@ -387,17 +384,13 @@ void display7SEGFinalhorizontal()
 	}
 	}
 
-	if(timerENhorizontal_flag == 1)
+	if(EN_horizontal > 1)
 	{
-		if(EN_horizontal > 1)
-		{
-			EN_horizontal = 0;
-		}
-
-		display7SEGBufferhorizontal(EN_horizontal);
-
-		EN_horizontal++;
-		setTimerENhorizontal(500);
+		EN_horizontal = 0;
 	}
+
+	display7SEGBufferhorizontal(EN_horizontal);
+
+	EN_horizontal++;
 }
 

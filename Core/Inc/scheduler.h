@@ -41,6 +41,4 @@ void SCH_Dispatch_Tasks(void);
 
 void SCH_Report_Status(void);
 
-void SCH_Go_To_Sleep(void);
-
 #endif /* INC_SCHEDULER_H_ */

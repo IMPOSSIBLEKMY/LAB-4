@@ -20,23 +20,11 @@ int timerENvertical_flag = 0;
 int timerENvertical_counter = 0;
 
 
-int timer7SEGCountRedhorizontal_flag = 0;
-int timer7SEGCountRedhorizontal_counter = 0;
+int timer7SEGCountHorizontal_flag = 0;
+int timer7SEGCountHorizontal_counter = 0;
 
-int timer7SEGCountYellowhorizontal_flag = 0;
-int timer7SEGCountYellowhorizontal_counter = 0;
-
-int timer7SEGCountGreenhorizontal_flag = 0;
-int timer7SEGCountGreenhorizontal_counter = 0;
-
-int timer7SEGCountRedvertical_flag = 0;
-int timer7SEGCountRedvertical_counter = 0;
-
-int timer7SEGCountYellowvertical_flag = 0;
-int timer7SEGCountYellowvertical_counter = 0;
-
-int timer7SEGCountGreenvertical_flag = 0;
-int timer7SEGCountGreenvertical_counter = 0;
+int timer7SEGCountVertical_flag = 0;
+int timer7SEGCountVertical_counter = 0;
 
 
 int timerAuto_flag = 0;
@@ -66,41 +54,17 @@ void setTimerENvertical(int duration)
 }
 
 
-void setTimer7SEGCountRedhorizontal(int duration)
+void setTimer7SEGCountHorizontal(int duration)
 {
-    timer7SEGCountRedhorizontal_counter = duration / TIMER_CYCLE;
-    timer7SEGCountRedhorizontal_flag = 0;
-}
-
-void setTimer7SEGCountYellowhorizontal(int duration)
-{
-    timer7SEGCountYellowhorizontal_counter = duration / TIMER_CYCLE;
-    timer7SEGCountYellowhorizontal_flag = 0;
-}
-
-void setTimer7SEGCountGreenhorizontal(int duration)
-{
-    timer7SEGCountGreenhorizontal_counter = duration / TIMER_CYCLE;
-    timer7SEGCountGreenhorizontal_flag = 0;
+    timer7SEGCountHorizontal_counter = duration / TIMER_CYCLE;
+    timer7SEGCountHorizontal_flag = 0;
 }
 
 
-void setTimer7SEGCountRedvertical(int duration)
+void setTimer7SEGCountVertical(int duration)
 {
-    timer7SEGCountRedvertical_counter = duration / TIMER_CYCLE;
-    timer7SEGCountRedvertical_flag = 0;
-}
-
-void setTimer7SEGCountYellowvertical(int duration)
-{
-    timer7SEGCountYellowvertical_counter = duration / TIMER_CYCLE;
-    timer7SEGCountYellowvertical_flag = 0;
-}
-
-void setTimer7SEGCountGreenvertical(int duration)
-{
-    timer7SEGCountGreenvertical_counter = duration / TIMER_CYCLE;
-    timer7SEGCountGreenvertical_flag = 0;
+    timer7SEGCountVertical_counter = duration / TIMER_CYCLE;
+    timer7SEGCountVertical_flag = 0;
 }
 
 
@@ -149,58 +113,22 @@ void timerRun()
     }
 
 
-    if (timer7SEGCountRedhorizontal_counter > 0)
+    if (timer7SEGCountHorizontal_counter > 0)
     {
-        timer7SEGCountRedhorizontal_counter--;
-        if (timer7SEGCountRedhorizontal_counter <= 0)
+        timer7SEGCountHorizontal_counter--;
+        if (timer7SEGCountHorizontal_counter <= 0)
         {
-            timer7SEGCountRedhorizontal_flag = 1;
-        }
-    }
-
-    if (timer7SEGCountYellowhorizontal_counter > 0)
-    {
-        timer7SEGCountYellowhorizontal_counter--;
-        if (timer7SEGCountYellowhorizontal_counter <= 0)
-        {
-            timer7SEGCountYellowhorizontal_flag = 1;
-        }
-    }
-
-    if (timer7SEGCountGreenhorizontal_counter > 0)
-    {
-        timer7SEGCountGreenhorizontal_counter--;
-        if (timer7SEGCountGreenhorizontal_counter <= 0)
-        {
-            timer7SEGCountGreenhorizontal_flag = 1;
+            timer7SEGCountHorizontal_flag = 1;
         }
     }
 
 
-    if (timer7SEGCountRedvertical_counter > 0)
+    if (timer7SEGCountVertical_counter > 0)
     {
-        timer7SEGCountRedvertical_counter--;
-        if (timer7SEGCountRedvertical_counter <= 0)
+        timer7SEGCountVertical_counter--;
+        if (timer7SEGCountVertical_counter <= 0)
         {
-            timer7SEGCountRedvertical_flag = 1;
-        }
-    }
-
-    if (timer7SEGCountYellowvertical_counter > 0)
-    {
-        timer7SEGCountYellowvertical_counter--;
-        if (timer7SEGCountYellowvertical_counter <= 0)
-        {
-            timer7SEGCountYellowvertical_flag = 1;
-        }
-    }
-
-    if (timer7SEGCountGreenvertical_counter > 0)
-    {
-        timer7SEGCountGreenvertical_counter--;
-        if (timer7SEGCountGreenvertical_counter <= 0)
-        {
-            timer7SEGCountGreenvertical_flag = 1;
+            timer7SEGCountVertical_flag = 1;
         }
     }
 

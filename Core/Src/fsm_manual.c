@@ -21,26 +21,35 @@ int check_button3_red = 0;
 int check_button3_yellow = 0;
 int check_button3_green = 0;
 
-void fsm_setting()
-{
+int auto_count = 20;
 
+void fsm_manual()
+{
 	switch(status_horizontal)
 	{
-	case INIT_AUTO:
-	{
-		if(isButton1Pressed() == 1)
-		{
-			status_horizontal = INIT_MANUAL;
-			status_vertical = INIT_MANUAL;
-		}
-		break;
-	}
 	case AUTO_RED:
 	{
 		if(isButton1Pressed() == 1)
 		{
-			status_horizontal = INIT_MANUAL;
-			status_vertical = INIT_MANUAL;
+			for(int i = 0; i < 3; i++)
+			{
+				red_yellow_green_manual_time[i] = red_yellow_green_auto_time_horizontal[i];
+			}
+
+			check_sync_red = 0;
+			check_sync_yellow = 0;
+			check_sync_green = 0;
+
+			check_button2_red = 0;
+			check_button2_yellow = 0;
+			check_button2_green = 0;
+
+			check_button3_red = 0;
+			check_button3_yellow = 0;
+			check_button3_green = 0;
+
+			status_horizontal = MANUAL_RED;
+			status_vertical = MANUAL_RED;
 		}
 		break;
 	}
@@ -48,8 +57,25 @@ void fsm_setting()
 	{
 		if(isButton1Pressed() == 1)
 		{
-			status_horizontal = INIT_MANUAL;
-			status_vertical = INIT_MANUAL;
+			for(int i = 0; i < 3; i++)
+			{
+				red_yellow_green_manual_time[i] = red_yellow_green_auto_time_horizontal[i];
+			}
+
+			check_sync_red = 0;
+			check_sync_yellow = 0;
+			check_sync_green = 0;
+
+			check_button2_red = 0;
+			check_button2_yellow = 0;
+			check_button2_green = 0;
+
+			check_button3_red = 0;
+			check_button3_yellow = 0;
+			check_button3_green = 0;
+
+			status_horizontal = MANUAL_RED;
+			status_vertical = MANUAL_RED;
 		}
 		break;
 	}
@@ -57,19 +83,52 @@ void fsm_setting()
 	{
 		if(isButton1Pressed() == 1)
 		{
-			status_horizontal = INIT_MANUAL;
-			status_vertical = INIT_MANUAL;
+			for(int i = 0; i < 3; i++)
+			{
+				red_yellow_green_manual_time[i] = red_yellow_green_auto_time_horizontal[i];
+			}
+
+			check_sync_red = 0;
+			check_sync_yellow = 0;
+			check_sync_green = 0;
+
+			check_button2_red = 0;
+			check_button2_yellow = 0;
+			check_button2_green = 0;
+
+			check_button3_red = 0;
+			check_button3_yellow = 0;
+			check_button3_green = 0;
+
+			status_horizontal = MANUAL_RED;
+			status_vertical = MANUAL_RED;
 		}
 		break;
 	}
 	case MANUAL_RED:
 	{
+
+		if(check_sync_red == 0)
+		{
+			check_sync_red = 1;
+			HAL_GPIO_WritePin(yellow1_GPIO_Port, red1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(yellow2_GPIO_Port, red2_Pin, GPIO_PIN_SET);
+		}
+
+		HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
+		HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
+
+		HAL_GPIO_WritePin(yellow1_GPIO_Port, yellow1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(yellow2_GPIO_Port, yellow2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(green1_GPIO_Port, green1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(green2_GPIO_Port, green2_Pin, GPIO_PIN_RESET);
+
 		if(isButton1Pressed() == 1)
 		{
 			status_horizontal = MANUAL_YELLOW;
 			status_vertical = MANUAL_YELLOW;
-			setTimerAuto(10000);
-			setTimerBlinking(500);
+
+			auto_count = 20;
 		}
 
 		if(isButton2Pressed() == 1)
@@ -84,7 +143,8 @@ void fsm_setting()
 			{
 				red_yellow_green_manual_time[0] = 1;
 			}
-			setTimerAuto(10000);
+
+			auto_count = 20;
 		}
 
 		if(isButton3Pressed() == 1)
@@ -99,25 +159,53 @@ void fsm_setting()
 			{
 				red_yellow_green_manual_time[0] = 1;
 			}
-			setTimerAuto(10000);
+
+			auto_count = 20;
 		}
 
 		if(isButton4Pressed() == 1)
 		{
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
-			timerAuto_flag = 0;
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
 		}
+
+		if(auto_count > 0)
+		{
+			auto_count--;
+		}
+		else
+		{
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
+		}
+
 		break;
 	}
 	case MANUAL_YELLOW:
 	{
+
+		if(check_sync_yellow == 0)
+		{
+			check_sync_yellow = 1;
+			HAL_GPIO_WritePin(yellow1_GPIO_Port, yellow1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(yellow2_GPIO_Port, yellow2_Pin, GPIO_PIN_SET);
+		}
+
+		HAL_GPIO_TogglePin(yellow1_GPIO_Port, yellow1_Pin);
+		HAL_GPIO_TogglePin(yellow2_GPIO_Port, yellow2_Pin);
+
+
+		HAL_GPIO_WritePin(red1_GPIO_Port, red1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(red2_GPIO_Port, red2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(green1_GPIO_Port, green1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(green2_GPIO_Port, green2_Pin, GPIO_PIN_RESET);
+
 		if(isButton1Pressed() == 1)
 		{
 			status_horizontal = MANUAL_GREEN;
 			status_vertical = MANUAL_GREEN;
-			setTimerAuto(10000);
-			setTimerBlinking(500);
+
+			auto_count = 20;
 		}
 
 		if(isButton2Pressed() == 1)
@@ -132,7 +220,8 @@ void fsm_setting()
 			{
 				red_yellow_green_manual_time[1] = 1;
 			}
-			setTimerAuto(10000);
+
+			auto_count = 20;
 		}
 
 		if(isButton3Pressed() == 1)
@@ -147,7 +236,8 @@ void fsm_setting()
 			{
 				red_yellow_green_manual_time[1] = 1;
 			}
-			setTimerAuto(10000);
+
+			auto_count = 20;
 		}
 
 		if(isButton4Pressed() == 1)
@@ -171,18 +261,45 @@ void fsm_setting()
 
 			}
 
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
-			timerAuto_flag = 0;
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
 		}
+
+		if(auto_count > 0)
+		{
+			auto_count--;
+		}
+		else
+		{
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
+		}
+
 		break;
 	}
 	case MANUAL_GREEN:
 	{
+
+		if(check_sync_green == 0)
+		{
+			check_sync_green = 1;
+			HAL_GPIO_WritePin(green1_GPIO_Port, green1_Pin, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(green2_GPIO_Port, green2_Pin, GPIO_PIN_SET);
+		}
+
+		HAL_GPIO_TogglePin(green1_GPIO_Port, green1_Pin);
+		HAL_GPIO_TogglePin(green2_GPIO_Port, green2_Pin);
+
+
+		HAL_GPIO_WritePin(red1_GPIO_Port, red1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(red2_GPIO_Port, red2_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(yellow1_GPIO_Port, yellow1_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(yellow2_GPIO_Port, yellow2_Pin, GPIO_PIN_RESET);
+
 		if(isButton1Pressed() == 1)
 		{
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
 		}
 
 		if(isButton2Pressed() == 1)
@@ -197,7 +314,8 @@ void fsm_setting()
 			{
 				red_yellow_green_manual_time[2] = 1;
 			}
-			setTimerAuto(10000);
+
+			auto_count = 20;
 		}
 
 		if(isButton3Pressed() == 1)
@@ -212,7 +330,8 @@ void fsm_setting()
 			{
 				red_yellow_green_manual_time[2] = 1;
 			}
-			setTimerAuto(10000);
+
+			auto_count = 20;
 		}
 
 		if(isButton4Pressed() == 1)
@@ -290,136 +409,18 @@ void fsm_setting()
 
 			}
 
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
-			timerAuto_flag = 0;
-		}
-		break;
-	}
-	}
-
-}
-
-void fsm_manual()
-{
-	switch(status_horizontal)
-	{
-	case INIT_MANUAL:
-	{
-		for(int i = 0; i < 3; i++)
-		{
-			red_yellow_green_manual_time[i] = red_yellow_green_auto_time_horizontal[i];
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
 		}
 
-		setTimerAuto(10000);
-		setTimerBlinking(500);
-
-		check_button2_red = 0;
-		check_button2_yellow = 0;
-		check_button2_green = 0;
-
-		check_button3_red = 0;
-		check_button3_yellow = 0;
-		check_button3_green = 0;
-
-		check_sync_red = 0;
-		check_sync_yellow = 0;
-		check_sync_green = 0;
-
-		EN_horizontal = 1;
-		EN_vertical = 1;
-		status_horizontal = MANUAL_RED;
-		break;
-	}
-	case MANUAL_RED:
-	{
-
-		if(check_sync_red == 0)
+		if(auto_count > 0)
 		{
-			check_sync_red = 1;
-			HAL_GPIO_WritePin(yellow1_GPIO_Port, red1_Pin, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(yellow2_GPIO_Port, red2_Pin, GPIO_PIN_SET);
+			auto_count--;
 		}
-
-		if(timerBlinking_flag == 1)
+		else
 		{
-			HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
-			HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
-
-			setTimerBlinking(500);
-		}
-
-		HAL_GPIO_WritePin(yellow1_GPIO_Port, yellow1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(yellow2_GPIO_Port, yellow2_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(green1_GPIO_Port, green1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(green2_GPIO_Port, green2_Pin, GPIO_PIN_RESET);
-
-		if(timerAuto_flag == 1)
-		{
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
-		}
-
-		break;
-	}
-	case MANUAL_YELLOW:
-	{
-
-		if(check_sync_yellow == 0)
-		{
-			check_sync_yellow = 1;
-			HAL_GPIO_WritePin(yellow1_GPIO_Port, yellow1_Pin, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(yellow2_GPIO_Port, yellow2_Pin, GPIO_PIN_SET);
-		}
-
-		if(timerBlinking_flag == 1)
-		{
-			HAL_GPIO_TogglePin(yellow1_GPIO_Port, yellow1_Pin);
-			HAL_GPIO_TogglePin(yellow2_GPIO_Port, yellow2_Pin);
-
-			setTimerBlinking(500);
-		}
-
-		HAL_GPIO_WritePin(red1_GPIO_Port, red1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(red2_GPIO_Port, red2_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(green1_GPIO_Port, green1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(green2_GPIO_Port, green2_Pin, GPIO_PIN_RESET);
-
-		if(timerAuto_flag == 1)
-		{
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
-		}
-
-		break;
-	}
-	case MANUAL_GREEN:
-	{
-
-		if(check_sync_green == 0)
-		{
-			check_sync_green = 1;
-			HAL_GPIO_WritePin(green1_GPIO_Port, green1_Pin, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(green2_GPIO_Port, green2_Pin, GPIO_PIN_SET);
-		}
-
-		if(timerBlinking_flag == 1)
-		{
-			HAL_GPIO_TogglePin(green1_GPIO_Port, green1_Pin);
-			HAL_GPIO_TogglePin(green2_GPIO_Port, green2_Pin);
-
-			setTimerBlinking(500);
-		}
-
-		HAL_GPIO_WritePin(red1_GPIO_Port, red1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(red2_GPIO_Port, red2_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(yellow1_GPIO_Port, yellow1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(yellow2_GPIO_Port, yellow2_Pin, GPIO_PIN_RESET);
-
-		if(timerAuto_flag == 1)
-		{
-			status_horizontal = INIT_AUTO;
-			status_vertical = INIT_AUTO;
+			status_horizontal = AUTO_RED;
+			status_vertical = AUTO_GREEN;
 		}
 
 		break;
